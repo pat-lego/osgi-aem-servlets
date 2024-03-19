@@ -22,9 +22,7 @@ import com.adobe.support.aem.osgi.servlets.SupportServletContext;
                 ")"
 })
 public class SimpleWhiteBoardServlet extends HttpServlet {
-
-   
-
+    
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         try(Writer writer = response.getWriter()) {

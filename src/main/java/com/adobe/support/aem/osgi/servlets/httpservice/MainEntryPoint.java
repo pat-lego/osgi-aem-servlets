@@ -22,17 +22,20 @@ public class MainEntryPoint {
 
     @Reference(target = "(osgi.servletType=" + SimpleHttpServiceServlet.TYPE
             + ")", cardinality = ReferenceCardinality.AT_LEAST_ONE, bind = "bindSupportServices", unbind = "unbindSupportServices")
-    List<SupportService> supportServices;
+    private List<SupportService> supportServices;
 
     @Reference
     private HttpService httpService;
 
+    @Reference(target = "(osgi.servletContext=" + SimpleHttpServiceHttpContext.CONTEXT + ")")
+    private HttpContext httpContext;
+
     @Activate
     public void activate() throws ServletException, NamespaceException {
         for (SupportService supportService : supportServices) {
-            this.httpService.registerServlet(supportService.getAlias(), supportService.getServlet(), null, null);
+            logger.info("Registering servlet alias {}", supportService.getAlias());
+            this.httpService.registerServlet(supportService.getAlias(), supportService.getServlet(), null, httpContext);
         }
-
     }
 
     public void bindSupportServices(SupportService supportService) {
