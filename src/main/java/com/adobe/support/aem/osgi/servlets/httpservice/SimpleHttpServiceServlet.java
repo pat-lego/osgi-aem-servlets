@@ -12,7 +12,7 @@ import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component(service = { SupportService.class }, immediate = true,
+@Component(service = { HttpServlet.class, SupportService.class }, immediate = true,
 property = {
     "osgi.servletType=" + SimpleHttpServiceServlet.TYPE
 })
